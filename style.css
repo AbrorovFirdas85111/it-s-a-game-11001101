@@ -1,0 +1,319 @@
+/* Umumiy stillar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a23;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* O'yin konteyneri */
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: radial-gradient(circle, #1a1a3d, #0a0a23);
+    overflow: hidden;
+}
+
+/* O'yin maydoni */
+#game-area {
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    max-height: 800px;
+    position: relative;
+    margin: auto;
+    border: 2px solid #ffffff20;
+    background: url('stars-bg.png') repeat;
+    cursor: none;
+}
+
+/* Nishon belgisi (crosshair) */
+#crosshair {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background: url('crosshair.png') no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+}
+
+/* Ochko ko'rsatkichi */
+#score-display {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #ffffff;
+    font-size: 24px;
+    text-shadow: 0 0 5px #00ffff;
+    z-index: 5;
+}
+
+/* Vaqt ko'rsatkichi */
+#timer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #ffffff;
+    font-size: 24px;
+    text-shadow: 0 0 5px #ff00ff;
+    z-index: 5;
+}
+
+/* Boshlang'ich ekran */
+#start-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    z-index: 20;
+}
+
+#start-screen h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+#start-screen p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* Tugma stillari */
+#start-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #00ffff;
+    border: none;
+    border-radius: 10px;
+    color: #0a0a23;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#start-button:hover {
+    background-color: #ff00ff;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* O'yin tugash ekrani */
+#game-over-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    z-index: 20;
+}
+
+#game-over-screen h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+#game-over-screen p {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+#restart-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff00ff;
+    border: none;
+    border-radius: 10px;
+    color: #0a0a23;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#restart-button:hover {
+    background-color: #00ffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #00ffff;
+}
+
+/* Yashirin class */
+.hidden {
+    display: none;
+}
+/* Nishonlar (yulduzlar) uchun stillar */
+.target {
+    position: absolute;
+    background: radial-gradient(circle, #ffffff, #ffff99, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffffff;
+    pointer-events: auto;
+    transition: transform 0.2s ease;
+    z-index: 8;
+}
+
+/* Nishon o'lchamlari uchun sinflar */
+.target-small {
+    width: 20px;
+    height: 20px;
+}
+
+.target-medium {
+    width: 40px;
+    height: 40px;
+}
+
+.target-large {
+    width: 60px;
+    height: 60px;
+}
+
+/* Nishon animatsiyasi */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+.target {
+    animation: float 2s infinite ease-in-out;
+}
+
+/* Nishonga tegish effekti */
+.target.hit {
+    background: radial-gradient(circle, #ff0000, #ff9999, transparent);
+    transform: scale(1.5);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+/* Maxsus effektlar uchun qo'shimcha sinflar */
+.glow {
+    box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* O'yin maydonidagi fon harakati */
+@keyframes bg-scroll {
+    from { background-position: 0 0; }
+    to { background-position: 100px 100px; }
+}
+
+#game-area {
+    animation: bg-scroll 20s linear infinite;
+}
+
+/* Mobil qurilmalar uchun moslashuv */
+@media (max-width: 768px) {
+    #game-area {
+        width: 95%;
+        height: 95%;
+    }
+
+    #crosshair {
+        width: 30px;
+        height: 30px;
+    }
+
+    #score-display, #timer {
+        font-size: 18px;
+    }
+
+    #start-screen h1, #game-over-screen h1 {
+        font-size: 36px;
+    }
+
+    #start-screen p, #game-over-screen p {
+        font-size: 16px;
+    }
+
+    #start-button, #restart-button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .target-small {
+        width: 15px;
+        height: 15px;
+    }
+
+    .target-medium {
+        width: 30px;
+        height: 30px;
+    }
+
+    .target-large {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Kichik detallar uchun qo'shimcha stillar */
+#score-display span {
+    color: #00ffff;
+    font-weight: bold;
+}
+
+#timer span {
+    color: #ff00ff;
+    font-weight: bold;
+}
+
+#final-score {
+    color: #00ffff;
+    font-size: 28px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Ovozli effektlar uchun ko'rsatkich */
+.audio-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    text-shadow: 0 0 5px #ffffff;
+}
+
+/* Nishonlarning tasodifiy rang variatsiyasi */
+.target.variant-1 {
+    background: radial-gradient(circle, #00ffff, #99ffff, transparent);
+}
+
+.target.variant-2 {
+    background: radial-gradient(circle, #ff00ff, #ff99ff, transparent);
+}
+
+.target.variant-3 {
+    background: radial-gradient(circle, #ffff00, #ffff99, transparent);
+}
